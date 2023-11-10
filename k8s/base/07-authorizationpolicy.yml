@@ -1,0 +1,14 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: ms-generales-vehiculos-pesados-cotizador-auth-policy
+  namespace: ms-cs-eks-generales-vehiculos-pesados
+spec:
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        principals: ["*"]
+  selector:
+    matchLabels:
+      app: ms-generales-vehiculos-pesados-cotizador

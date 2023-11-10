@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: gateway-global
+  namespace: ms-cs-eks-generales-vehiculos-pesados
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - hosts:
+    - "*.cnsv.cl"
+    port:
+      name: http
+      number: 80
+      protocol: HTTP

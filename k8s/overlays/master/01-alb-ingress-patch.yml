@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    alb.ingress.kubernetes.io/backend-protocol: HTTP
+    alb.ingress.kubernetes.io/certificate-arn: |
+      arn:aws:acm:us-east-1:723589903925:certificate/c8b30570-6cc5-4665-a92b-cf5f0cc7e31e,arn:aws:acm:us-east-1:723589903925:certificate/135a50d1-778f-4463-a34b-96c936725b9f
+    alb.ingress.kubernetes.io/group.name: microservices-k8s
+    alb.ingress.kubernetes.io/healthcheck-path: /healthz/ready
+    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/load-balancer-name: ingress-global-k8s-v2
+    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    kubernetes.io/ingress.class: alb
+  name: ms-generales-vehiculos-pesados-cotizador-ingress
+  namespace: istio-system
+spec:
+  rules:
+  - host: ms-generales-vehiculos-pesados-cotizador.cnsv.cl
+    http:
+      paths:
+      - backend:
+          service:
+            name: istio-ingressgateway
+            port:
+              number: 15021
+        path: /healthz/ready
+        pathType: Prefix
+      - backend:
+          service:
+            name: istio-ingressgateway
+            port:
+              number: 80
+        path: /
+        pathType: Prefix

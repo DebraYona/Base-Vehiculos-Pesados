@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: ms-generales-vehiculos-pesados-cotizador-vs
+  namespace: ms-cs-eks-generales-vehiculos-pesados
+spec:
+  gateways:
+  - istio-system/gateway-global
+  hosts:
+  - cloud-services-release.cnsv.cl
+  http:
+  - match:
+    - uri:
+        prefix: /generales/vehiculos-pesados/cotizador
+    route:
+    - destination:
+        host: ms-generales-vehiculos-pesados-cotizador-svc.ms-cs-eks-generales-vehiculos-pesados.svc.cluster.local
+        port:
+          number: 80

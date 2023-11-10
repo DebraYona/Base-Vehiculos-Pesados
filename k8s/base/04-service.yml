@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-generales-vehiculos-pesados-cotizador-svc
+  namespace: ms-cs-eks-generales-vehiculos-pesados
+spec:
+  selector:
+    app: ms-generales-vehiculos-pesados-cotizador
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 3000
